@@ -1,0 +1,201 @@
+<!DOCTYPE HTML><html>
+<head>
+  <title>😽Get Chill</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+ 
+ :root { 
+      --danger: #ff1744; --safe: #2979ff; --dark: #0d47a1; 
+      --bg: #f8fafc; --card-bg: #ffffff;
+    }
+    body { font-family: 'Inter', 'Segoe UI', sans-serif; background: var(--bg); margin: 0; color: #1e293b; }
+    
+    /* Header Styling */
+    .header { 
+      background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+      color: white; padding: 1rem 2rem; display: flex; 
+      justify-content: space-between; align-items: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    /* Layout Grid */
+    .main-grid { 
+      display: grid; 
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 20px; padding: 25px; max-width: 1400px; margin: auto;
+    }
+
+    /* Attractive Card Boxes */
+    .card { 
+      background: var(--card-bg); border-radius: 16px; padding: 20px; 
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      border: 1px solid #e2e8f0; transition: transform 0.2s;
+    }
+    .card:hover { transform: translateY(-4px); }
+
+    .card h3 { 
+      margin: 0 0 15px 0; font-size: 0.9rem; letter-spacing: 0.05em;
+      text-transform: uppercase; color: #64748b; display: flex; justify-content: space-between;
+    }
+
+    /* Big Value Display */
+    .val-display { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; color: #0f172a; }
+    .unit { font-size: 1rem; color: #94a3b8; font-weight: 400; }
+
+    /* LED Status Indicators */
+    .led { height: 12px; width: 12px; border-radius: 50%; display: inline-block; }
+    .blue-led { background: var(--safe); box-shadow: 0 0 12px rgba(41, 121, 255, 0.4); }
+    .red-led { background: var(--danger); box-shadow: 0 0 12px rgba(255, 23, 68, 0.4); }
+
+    /* Graph Sizing */
+    .big-graph { grid-column: span 2; height: 320px; }
+    canvas { width: 100% !important; height: 140px !important; }
+    .big-graph canvas { height: 220px !important; }
+
+    /* Bottom Navigation */
+    .footer-nav { 
+      text-align: center; margin-top: 30px; padding-bottom: 40px; 
+    }
+    .btn-back {
+      text-decoration: none; background: var(--dark); color: white;
+      padding: 12px 25px; border-radius: 8px; font-weight: 600;
+      transition: 0.3s; display: inline-block;
+    }
+    .btn-back:hover { background: #1565c0; box-shadow: 0 4px 12px rgba(13,71,161,0.3); }
+
+    @media (max-width: 1100px) { .main-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 650px) { .main-grid { grid-template-columns: 1fr; } .big-graph { grid-column: span 1; } }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div><strong>GOVERNMENT MONITORING</strong> <span style="opacity:0.7; font-weight:300; margin-left:10px;">| Industry Division</span></div>
+    <div id="clock" style="font-family: monospace; font-size: 1.2rem;">00:00:00</div>
+  </div>
+
+  <div class="main-grid">
+    <div class="card">
+      <h3>MQ2 GAS <span id="l1" class="led blue-led"></span></h3>
+      <div class="val-display"><span id="v1">0</span><span class="unit"> ppm</span></div>
+      <canvas id="chart-mq2"></canvas>
+    </div>
+
+    <div class="card">
+      <h3>MQ135 AIR <span id="l2" class="led blue-led"></span></h3>
+      <div class="val-display"><span id="v2">0</span><span class="unit"> ppm</span></div>
+      <canvas id="chart-mq135"></canvas>
+    </div>
+
+    <div class="card">
+      <h3>WATER pH <span id="l3" class="led blue-led"></span></h3>
+      <div class="val-display"><span id="v3">0.0</span><span class="unit"> ph</span></div>
+      <canvas id="chart-ph"></canvas>
+    </div>
+
+    <div class="card">
+      <h3>TURBIDITY <span id="l4" class="led blue-led"></span></h3>
+      <div class="val-display"><span id="v4">0</span><span class="unit"> ntu</span></div>
+      <canvas id="chart-turb"></canvas>
+    </div>
+
+    <div class="card big-graph">
+      <h3 style="color:#1e293b; font-weight:700">Environmental Air Index (Aggregated)</h3>
+      <canvas id="chart-air-total"></canvas>
+    </div>
+
+    <div class="card big-graph">
+      <h3 style="color:#1e293b; font-weight:700">Environmental Water Index (Aggregated)</h3>
+      <canvas id="chart-water-total"></canvas>
+    </div>
+  </div>
+
+  <div class="footer-nav">
+    <a href="monitor.html" class="btn-back">← Back to Main Monitor</a>
+  </div>
+
+<script>
+function createChart(id, label, color, fill) {
+  return new Chart(document.getElementById(id), {
+    type: 'line',
+    data: { labels: [], datasets: [{ 
+      label: label, data: [], borderColor: color, 
+      borderWidth: 2, tension: 0.4, fill: fill, 
+      backgroundColor: color + '15', pointRadius: 0 
+    }]},
+    options: { 
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { 
+        x: { display: false }, 
+        y: { grid: { color: '#f1f5f9' }, ticks: { color: '#94a3b8', font: { size: 10 } } } 
+      } 
+    }
+  });
+}
+
+const charts = {
+  mq2: createChart('chart-mq2', 'Gas', '#3b82f6', false),
+  mq135: createChart('chart-mq135', 'CO2', '#10b981', false),
+  ph: createChart('chart-ph', 'pH', '#f59e0b', false),
+  turb: createChart('chart-turb', 'NTU', '#8b5cf6', false),
+  air: createChart('chart-air-total', 'Air Index', '#334155', true),
+  water: createChart('chart-water-total', 'Water Index', '#0ea5e9', true)
+};
+
+function updateChart(chart, value) {
+  if (chart.data.labels.length > 25) {
+    chart.data.labels.shift();
+    chart.data.datasets[0].data.shift();
+  }
+  chart.data.labels.push("");
+  chart.data.datasets[0].data.push(value);
+  chart.update('none'); // Optimized for performance
+}
+
+setInterval(() => {
+  fetch('/readings').then(r => r.json()).then(data => {
+    // Update Text Values
+    document.getElementById('v1').innerText = data.gas;
+    document.getElementById('v2').innerText = data.air;
+    document.getElementById('v3').innerText = data.ph;
+    document.getElementById('v4').innerText = data.turb;
+
+    // Update Charts
+    updateChart(charts.mq2, data.gas);
+    updateChart(charts.mq135, data.air);
+    updateChart(charts.ph, data.ph);
+    updateChart(charts.turb, data.turb);
+
+    // Composite Logic
+    let airIdx = (parseFloat(data.gas) + parseFloat(data.air)) / 2;
+    let waterIdx = (parseFloat(data.ph) * 10 + (4095 - data.turb) / 20); 
+    updateChart(charts.air, airIdx);
+    updateChart(charts.water, waterIdx);
+
+    // Status Logic
+    document.getElementById('l1').className = data.gas > 800 ? "led red-led" : "led blue-led";
+    document.getElementById('l2').className = data.air > 700 ? "led red-led" : "led blue-led";
+    document.getElementById('l3').className = (data.ph < 6.5 || data.ph > 8.5) ? "led red-led" : "led blue-led";
+    document.getElementById('l4').className = data.turb > 2000 ? "led red-led" : "led blue-led";
+  });
+  document.getElementById('clock').innerHTML = new Date().toLocaleTimeString();
+}, 2000);
+</script>
+<center class="kr">
+    
+    <h2 class="ke"> Contact: </h2>
+       <h3> vallalar street ,Anna Nagar<br>
+        Chennai-600487</h3>
+        <h3>
+            EMail:governoftamilnadu78@gmail.com<br>
+            Phone:7297383124<br>
+            Laneline:044-24328841
+        </h3>
+    </p>
+    
+</center>
+
+</body>
+</html>

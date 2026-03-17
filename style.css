@@ -1,0 +1,145 @@
+.mq2{
+   display: inline-block;
+   background-color: lightgreen;
+    border: 5px;
+    border-color: cadetblue;
+    border-style: solid;
+    padding: 25px;
+    margin-left: 5%;
+
+}
+.ka{
+    margin-top: 69px;
+}
+.dashboard-container{
+    margin-top: 30%;
+}
+.kw{
+    margin-top: 10%;
+}
+
+.email-status-container {
+    text-align: right;
+    padding: 10px;
+    border-top: 1px solid #444;
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.tick-icon {
+    font-size: 1.5rem;
+    margin-left: 10px;
+    color: #555; /* Default: Not Green */
+    transition: color 0.5s ease;
+}
+
+.tick-icon.sent {
+    color: #2ecc71; /* Success: Green */
+    text-shadow: 0 0 10px #2ecc71;
+}
+
+Step 3: The JavaScript Logic (main.js)
+
+This logic tracks the 2-minute "Unsafe" timer and turns the tick symbol green once the email trigger is sent.
+JavaScript
+
+let unsafeStartTime = null;
+
+function monitorAndAlert(data) {
+    const tick = document.getElementById('email-tick');
+    const timerDisplay = document.getElementById('timer-text');
+    
+    // Define unsafe conditions
+    const isUnsafe = data.mq2 > 600 || data.mq135 > 400 || data.ph < 6 || data.ph > 9 || data.tur > 50;
+
+    if (isUnsafe) {
+        if (unsafeStartTime === null) {
+            unsafeStartTime = Date.now();
+        } else {
+            let elapsedSeconds = Math.floor((Date.now() - unsafeStartTime) / 1000);
+            let remaining = 120 - elapsedSeconds;
+
+            if (remaining > 0) {
+                timerDisplay.innerText = `Unsafe! Email in ${remaining}s...`;
+                tick.classList.remove('sent'); // Keep it grey while counting
+            } else {
+                sendEmailTrigger();
+                tick.classList.add('sent'); // TURN GREEN
+                timerDisplay.innerText = "Email Triggered!";
+                unsafeStartTime = Date.now(); // Reset to prevent spamming
+            }
+        }
+    } else {
+        unsafeStartTime = null;
+        tick.classList.remove('sent'); // Reset to grey when safe
+        timerDisplay.innerText = "Conditions Safe";
+    }
+}
+
+async function sendEmailTrigger() {
+    const writeAPI = "YOUR_WRITE_API_KEY";
+    const url = `https://api.thingspeak.com/update?api_key=${writeAPI}&field5=1`;
+    await fetch(url);
+}
+.kq{
+    margin-top: 1px;
+    color: seagreen;
+}
+.ke{
+    margin-top: 20px;
+    margin-bottom: 2px;
+}
+.kr{
+    color: darkblue;
+}
+
+
+
+.ki{
+    border-color: black;
+    color: blueviolet;
+
+}
+
+/* Container for the link */
+.ku {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  padding-bottom: 50px;
+  margin-left: 65%;
+}
+
+/* Styled Anchor Tag as a Button */
+.ku a {
+  text-decoration: none;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%); /* Sleek dark slate */
+  color: #ffffff;
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Hover Effects */
+.ku a:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); /* Changes to blue on hover */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+}
+
+/* Active Click Effect */
+.ku a:active {
+  transform: translateY(-1px);
+}

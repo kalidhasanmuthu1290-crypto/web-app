@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>😽Get Chill</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+       
+       
+       body { background-color: beige; font-family: 'Segoe UI', sans-serif; padding: 20px; }
+        .header-logo { text-align: center; color: seagreen; margin-bottom: 30px; }
+        
+        .industry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* All cards look the same now */
+        .industry-card {
+            background: burlywood;
+            color: brown;
+            padding: 20px;
+            text-align: center;
+            border-radius: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            display: block;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        /* Hover effect for all cards to keep style consistent */
+        .industry-card:hover {
+            transform: scale(1.05);
+            background: seagreen;
+            color: white;
+        }
+
+        /* THIS IS THE KEY: Locked cards cannot be clicked */
+        .locked {
+            pointer-events: none; /* Disables all clicks and links */
+            cursor: default;
+        }
+
+        .district-label { font-size: 0.8rem; display: block; margin-top: 5px; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+    <div class="header-logo">
+        <img src="pngegg.png" width="80px"><br>
+        <h1>TamilNadu Pollution Control Board 🌱</h1>
+        <h2>Industrial Monitoring Portal</h2>
+    </div>
+
+    <div class="industry-grid">
+        <a href="monitor.html" class="industry-card">
+            Industry 01
+            <span class="district-label">Salem District</span>
+        </a>
+
+        <a href="monitor.html" class="industry-card locked">
+            Industry 02
+            <span class="district-label">Kanchipuram District</span>
+        </a>
+
+        <a href="monitor.html" class="industry-card locked">Industry 03 <span class="district-label">Coimbatore</span></a>
+        <a href="monitor.html" class="industry-card locked">Industry 04 <span class="district-label">Madurai</span></a>
+        <a href="monitor.html" class="industry-card locked">Industry 05 <span class="district-label">Salem</span></a>
+        <a href="monitor.html" class="industry-card locked">Industry 06 <span class="district-label">Tiruchirappalli</span></a>
+        <a href="monitor.html" class="industry-card locked">Industry 07 <span class="district-label">Tiruppur</span></a>
+        <a href="monitor.html" class="industry-card locked">Industry 08 <span class="district-label">Erode</span></a>
+        <a href="monitor.html" class="industry-card locked">Industry 09 <span class="district-label">Vellore</span></a>
+        <a href="monitor.html" class="industry-card locked">Industry 10 <span class="district-label">Thoothukudi</span></a>
+        <a href="monitor.html" class="industry-card locked">Industry 11 <span class="district-label">Dindigul</span></a>
+        <a href="monitor.html" class="industry-card locked">Industry 12 <span class="district-label">Thanjavur</span></a>
+        <a href="monitor.html" class="industry-card locked">Industry 13 <span class="district-label">Sivagangai</span></a>
+        <a href="monitor.html" class="industry-card locked">Industry 14 <span class="district-label">Virudhunagar</span></a>
+        <a href="monitor.html" class="industry-card locked">Industry 15 <span class="district-label">Karur</span></a>
+        <a href="monitor.html" class="industry-card locked">Industry 16 <span class="district-label">Namakkal</span></a>
+        <a href="monitor.html" class="industry-card locked">Industry 17 <span class="district-label">Hosur</span></a>
+        <a href="monitor.html" class="industry-card locked">Industry 18 <span class="district-label">Ranipet</span></a>
+        <a href="monitor.html" class="industry-card locked">Industry 19 <span class="district-label">Nagapattinam</span></a>
+    </div>
+
+    <a href="index.html">back to login</a>
+</body>
+</html>
