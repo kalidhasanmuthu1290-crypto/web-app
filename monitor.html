@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="style.css">
+<html>
+    <title>😽Get Chill</title>
+    <body bgcolor="beige " >
+        <script src="main.java"></script>
+
+    <center>
+         <img src="pngegg.png" width="70px"/><h1 style="color: seagreen;">TamilNadu Pollution Control Board🌱 </h1>
+         </center>
+         <center>
+            <style>
+                li{
+                    display: inline-block;
+                     background-color: burlywood;
+                      color: brown;
+                      background-color: ;
+                }
+            </style>
+
+         </center>
+         <center>
+            <ul>
+            <li>Environmental standards & legistations</li>|
+            <li>Information</li>|
+            <li>Login</li>|
+            <li>Online Services</li>|
+            <li>About TNPCB🌱♻️🌍</li>|
+            
+         </ul>
+         </center>
+       <center><h1 class="ka" style="color: palevioletred;">Air and Water Quality Monitoring of Industries Under TamilNadu</h1>
+    </center>
+
+    <div class="ku">
+    <a href="report.html">
+        <span>📊</span> View Graph Report
+    </a>
+</div>
+    <div class="dashboard-container">
+    
+    <div class="sensor-card air">
+        <h3>MQ2 - Gas Level</h3>
+        <div id="mq2-value" class="reading">0.00 <span class="unit">PPM</span></div>
+        <div id="mq2-status" class="status">Checking...</div>
+    </div>
+
+    <div class="sensor-card water">
+        <h3>Water pH Level</h3>
+        <div id="ph-value" class="reading">7.0 <span class="unit">pH</span></div>
+        <div id="ph-status" class="status">Neutral</div>
+    </div>
+
+    <div class="sensor-card turbidity">
+        <h3>Water Turbidity</h3>
+        <div id="tur-value" class="reading">0.0 <span class="unit">NTU</span></div>
+        <div id="tur-status" class="status">Clear</div>
+    </div>
+
+    <div class="sensor-card smoke">
+        <h3>Smoke Detection</h3>
+        <div id="smoke-value" class="reading">0.00 <span class="unit">PPM</span></div>
+        <div id="smoke-status" class="status">Safe</div>
+    </div>
+
+</div>
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+
+    /* Container to hold the 4 cards in a row */
+    .dashboard-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 50px;
+    }
+
+    /* Stylish Card Design */
+    .sensor-card {
+        background: white;
+        width: 250px;
+        padding: 25px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        border-bottom: 5px solid #ccc;
+        transition: transform 0.3s;
+    }
+
+    .sensor-card:hover {
+        transform: translateY(-10px);
+    }
+
+    /* Specific Card Colors */
+    .air { border-color: seagreen; }
+    .water { border-color: dodgerblue; }
+    .turbidity { border-color: orange; }
+    .smoke { border-color: palevioletred; }
+
+    .reading {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+        margin: 15px 0;
+    }
+
+    .unit {
+        font-size: 1rem;
+        color: #888;
+    }
+
+    /* Status Label (The New Line) */
+    .status {
+        display: block; /* Forces it to a new line */
+        font-weight: 600;
+        padding: 8px;
+        background: #f0f0f0;
+        border-radius: 10px;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+    }
+</style>
+<center>
+    <h1 class="kw">Heatmap for  Monitoring Pollution Level Through LED🚨</h1>
+</center>
+
+<div class="analysis-board">
+    <div class="monitor-row">
+        <div class="sensor-info"><strong>MQ2 (Butane):</strong> <span id="val-mq2">0</span> PPM</div>
+        <div class="led-group">
+            <div id="mq2-blue" class="v-led blue"></div>
+            <div id="mq2-yellow" class="v-led yellow"></div>
+            <div id="mq2-red" class="v-led red"></div>
+        </div>
+    </div>
+
+    <div class="monitor-row">
+        <div class="sensor-info"><strong>MQ135 (Smoke):</strong> <span id="val-mq135">0</span> PPM</div>
+        <div class="led-group">
+            <div id="mq135-blue" class="v-led blue"></div>
+            <div id="mq135-yellow" class="v-led yellow"></div>
+            <div id="mq135-red" class="v-led red"></div>
+        </div>
+    </div>
+
+    <div class="monitor-row">
+        <div class="sensor-info"><strong>Turbidity:</strong> <span id="val-tur">0</span> NTU</div>
+        <div class="led-group">
+            <div id="tur-blue" class="v-led blue"></div>
+            <div id="tur-yellow" class="v-led yellow"></div>
+            <div id="tur-red" class="v-led red"></div>
+        </div>
+    </div>
+
+    <div class="monitor-row">
+        <div class="sensor-info"><strong>pH Level:</strong> <span id="val-ph">7.0</span> pH</div>
+        <div class="led-group">
+            <div id="ph-blue" class="v-led blue"></div>
+            <div id="ph-yellow" class="v-led yellow"></div>
+            <div id="ph-red" class="v-led red"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+    
+    .analysis-board {
+        background: #333; /* Dark industrial background */
+        padding: 20px;
+        border-radius: 15px;
+        width: 80%;
+        margin: 20px auto;
+        color: white;
+    }
+
+    .monitor-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        border-bottom: 1px solid #444;
+    }
+
+    .sensor-info {
+        width: 250px;
+        font-size: 1.1rem;
+    }
+
+    .led-group {
+        display: flex; /* Makes LEDs horizontal */
+        gap: 20px;
+    }
+
+    /* Base LED Style */
+    .v-led {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background-color: #111; /* Off state */
+        border: 2px solid #555;
+        transition: 0.3s;
+    }
+
+    /* LED Active Glow States */
+    .blue.active { background: #00d4ff; box-shadow: 0 0 15px #00d4ff; }
+    .yellow.active { background: #ffcc00; box-shadow: 0 0 15px #ffcc00; animation: blink 1s infinite; }
+    .red.active { background: #ff4d4d; box-shadow: 0 0 15px #ff4d4d; animation: blink 0.5s infinite; }
+
+    @keyframes blink {
+        0% { opacity: 1; }
+        50% { opacity: 0.3; }
+        100% { opacity: 1; }
+    }
+</style>
+<h3>
+
+<div  class="email-status-container">
+    <span  style="color: #ff4d4d;"> EMail ...Alert Status:</span>
+    <span id="email-tick" class="tick-icon">✔</span>
+    <span id="timer-text" style="font-size: 0.8rem; margin-left: 10px; color: #aaa;">Monitoring...</span>
+</div>
+</h3>
+
+<center class="kq"><p>
+    <h2  >In TamilNadu All Industries and Factories is Under Control of <br>
+<h2>TamilNadu Pollution Control Board🏭</h2>
+</h2>
+</p ></center>
+
+<a href="main.html" style="text-decoration: none; padding: 10px 20px; background: seagreen; color: white; border-radius: 5px; position: absolute; top: 20px; left: 20px;">
+    ⬅ Back to Selection
+</a>
+
+</body>
+</html>

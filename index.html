@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>😽Get Chill</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: beige;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Back Button Style from your main page */
+        .back-btn {
+            text-decoration: none;
+            padding: 10px 20px;
+            background: seagreen;
+            color: white;
+            border-radius: 5px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-weight: bold;
+        }
+
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-bottom: 5px solid seagreen;
+            width: 350px;
+            text-align: center;
+        }
+
+        .login-card img {
+            width: 60px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: brown;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+            font-size: 1rem;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: seagreen;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .login-btn:hover {
+            background-color: #2e7d32;
+            transform: translateY(-2px);
+        }
+
+        .footer-text {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+    </style></head><body>
+
+    
+
+    <div class="login-card">
+        <img src="pngegg.png" alt="TNPCB Logo">
+        <h2>Government Login Portal</h2>
+        
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="loginId">Login ID</label>
+                <input type="text" id="loginId" placeholder="Enter Official ID" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter Password" required>
+            </div>
+
+            <button type="submit" class="login-btn">OPEN DASHBOARD</button>
+        </form>
+
+        <div class="footer-text">
+            © TamilNadu Pollution Control Board <br>
+            Secure Administrative Access Only
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simple logic for the "Open" action
+            const loginId = document.getElementById('loginId').value;
+            const pass = document.getElementById('password').value;
+
+            if(loginId === "salemdiefac21" && pass === "dieltd23") {
+                // alert("Access Granted. Opening Monitoring System...");
+                window.location.href = "main.html"; // Replace with your actual sensor page filename
+            } else {
+                alert("Invalid Credentials. Please try again.");
+            }
+        });
+    </script></body></html>   
